@@ -4,7 +4,7 @@ provider "aws" {
   secret_key = " Enter your AWS secret key here"
 } 
 
-resource "aws_instance" "Digital Demo" { 
+resource "aws_instance" "DigitalDemo" { 
   
  ami =  "ami-05d7.....Enter your AMI key here" - You can obtain that from EC2 market place
  instance_type = "t2.micro"
