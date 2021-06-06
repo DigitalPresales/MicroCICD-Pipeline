@@ -1,0 +1,31 @@
+#Pipeline configuration code
+image: atlassian/default-image:2
+image: python:3.8
+pipelines:
+  default:
+    - parallel:
+        - step:
+            name: 'Build and Test'
+            caches:
+              - pip
+            script:
+#              - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+              - echo "Building docker container, pull image, file creation etc."
+        - step:
+            name: 'Security scan'
+            script:
+              - echo "static code analyis"
+              - echo "OWASP Top 10 vulnerability analysis"
+
+    - step:
+        name: 'Deployment to Staging'
+        deployment: staging
+        script:
+          - python app.py
+          - echo "Above app has been deployed"
+    - step:
+        name: 'Deployment to Production'
+        deployment: production
+        trigger: 'manual'
+        script:
+          - echo "Your app or feature has been successfully deployed in production environment"
